@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dashboard</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b0e14;
+    color: #ffffff;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow: hidden;
+}
+
+#offline-ui {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0b0e14;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#offline-ui h2 {
+    color: #ef4444;
+}
+
+#skeleton-ui {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.sidebar {
+    width: 240px;
+    background-color: #0b0e14;
+    border-right: 1px solid #1f2229;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+}
+
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.skel {
+    background: linear-gradient(90deg, #15181e 25%, #1f2229 50%, #15181e 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: 8px;
+}
+
+.skel-logo { height: 30px; width: 150px; margin-bottom: 20px; }
+.skel-nav { height: 20px; width: 80%; border-radius: 4px; }
+.skel-title { height: 32px; width: 200px; margin-bottom: 5px; }
+.skel-subtitle { height: 16px; width: 250px; margin-bottom: 20px; }
+
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.skel-card {
+    background-color: #15181e;
+    border: 1px solid #1f2229;
+    border-radius: 12px;
+    padding: 20px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.skel-card-title { height: 12px; width: 40%; border-radius: 4px; }
+.skel-card-value { height: 28px; width: 60%; border-radius: 4px; }
+
+.skel-table {
+    flex: 1;
+    background-color: #15181e;
+    border: 1px solid #1f2229;
+    border-radius: 12px;
+    margin-top: 10px;
+}
+
+iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    border: none;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+@media (max-width: 768px) {
+    .sidebar { display: none; }
+    .grid-4, .grid-3 { grid-template-columns: 1fr; gap: 15px; }
+    .main-content { padding: 15px; overflow-y: hidden; }
+    .skel-table { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="offline-ui">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+    </svg>
+    <h2>No Internet Connection</h2>
+    <p>Please check your network and try again.</p>
+</div>
+
+<div id="skeleton-ui">
+    <div class="sidebar">
+        <div class="skel skel-logo"></div>
+        <div class="skel skel-nav"></div>
+        <div class="skel skel-nav"></div>
+        <div class="skel skel-nav"></div>
+        <div class="skel skel-nav" style="margin-top: 20px;"></div>
+        <div class="skel skel-nav"></div>
+        <div class="skel skel-nav"></div>
+        <div class="skel skel-nav"></div>
+        <div class="skel skel-nav"></div>
+    </div>
+    <div class="main-content">
+        <div>
+            <div class="skel skel-title"></div>
+            <div class="skel skel-subtitle"></div>
+        </div>
+        
+        <div class="grid-4">
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value"></div></div>
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value"></div></div>
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value"></div></div>
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value"></div></div>
+        </div>
+
+        <div class="grid-3">
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value" style="width: 40%;"></div></div>
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value" style="width: 40%;"></div></div>
+            <div class="skel-card"><div class="skel skel-card-title"></div><div class="skel skel-card-value" style="width: 40%;"></div></div>
+        </div>
+
+        <div class="skel skel-table"></div>
+    </div>
+</div>
+
+<iframe id="app-frame" src="https://tvjournal.lovable.app/"></iframe>
+
+<script>
+const offlineUi = document.getElementById('offline-ui');
+const skeletonUi = document.getElementById('skeleton-ui');
+const appFrame = document.getElementById('app-frame');
+
+function updateNetworkStatus() {
+    if (navigator.onLine) {
+        offlineUi.style.display = 'none';
+        appFrame.src = appFrame.src;
+    } else {
+        offlineUi.style.display = 'flex';
+        appFrame.style.opacity = '0';
+        appFrame.style.pointerEvents = 'none';
+    }
+}
+
+window.addEventListener('online', updateNetworkStatus);
+window.addEventListener('offline', updateNetworkStatus);
+
+appFrame.addEventListener('load', () => {
+    if (navigator.onLine) {
+        appFrame.style.opacity = '1';
+        appFrame.style.pointerEvents = 'auto';
+        setTimeout(() => {
+            skeletonUi.style.display = 'none';
+        }, 400);
+    }
+});
+
+updateNetworkStatus();
+</script>
+
+</body>
+</html>
